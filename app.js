@@ -1,4 +1,5 @@
 const results = document.getElementById('results');
+const input = document.querySelector('input[type="text"]');
 const lis = document.querySelectorAll('li');
 const icons = document.querySelectorAll('li i');
 
@@ -16,15 +17,13 @@ for (let icon of icons) {
 	});
 }
 
-const input = document.querySelector('input[type="text"]');
-const ul = document.querySelector('ul');
 
 input.addEventListener('keypress', function(event) {
 	if (event.keyCode === 13) {
 		let newTodo = document.createElement('li');
 		let newSpan = document.createElement('span');
 		let newIcon = document.createElement('i');
-		ul.append(newTodo);
+		results.append(newTodo);
 		textContent = input.value;
 		newTodo.append(newSpan);
 		newSpan.append(newIcon);
