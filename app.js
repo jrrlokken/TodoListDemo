@@ -1,22 +1,5 @@
 const results = document.getElementById('results');
 const input = document.querySelector('input[type="text"]');
-const lis = document.querySelectorAll('li');
-const icons = document.querySelectorAll('li i');
-
-// Strikethrough to show completed tasks
-for (let li of lis) {
-	li.addEventListener('click', function() {
-		li.classList.toggle('completed');
-	});
-}
-
-// Allow clicking of the trash icon to remove item
-for (let icon of icons) {
-	icon.addEventListener('click', function() {
-		icon.parentElement.parentElement.remove();
-	});
-}
-
 
 input.addEventListener('keypress', function(event) {
 	if (event.keyCode === 13) {
@@ -33,5 +16,17 @@ input.addEventListener('keypress', function(event) {
 	}
 });
 
-// Still need event listeners for newly added elements
+results.addEventListener('click', function() {
+	console.log(event.target.tagName);
+	if (event.target.tagName === 'LI') {
+		event.target.classList.toggle('completed');
+	} else if (event.target.tagName === 'SPAN') {
+		event.target.parentElement.remove();
+	} else if (event.target.tagName === 'I') {
+		event.target.parentElement.parentElement.remove();
+	}
+});
+
+
+
 // Then, add local storage
