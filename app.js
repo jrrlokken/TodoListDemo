@@ -1,32 +1,37 @@
 const results = document.getElementById('results');
+const form = document.querySelector('form');
 const input = document.querySelector('input[type="text"]');
+const todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []
 
-input.addEventListener('keypress', function(event) {
-	if (event.keyCode === 13) {
-		let newTodo = document.createElement('li');
-		let newSpan = document.createElement('span');
-		let newIcon = document.createElement('i');
-		results.append(newTodo);
-		textContent = input.value;
-		newTodo.append(newSpan);
-		newSpan.append(newIcon);
-		newIcon.classList.add('fa', 'fa-trash');
-		newTodo.append(textContent);
-		input.value = '';
-	}
+const todoMaker = text => {
+  const newTodo = document.createElement('li');
+  const newSpan = document.createElement('span');
+  newSpan.textContent = 'X';
+  newTodo.append(newSpan);
+  newTodo.append(text);
+  results.append(newTodo);
+  todos.push(text);
+  console.log(todos);
+}
+
+todos.forEach(todo => {
+  todoMaker(todo);
+});
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  todoMaker(input.value);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  form.reset();
 });
 
 results.addEventListener('click', function() {
-	console.log(event.target.tagName);
 	if (event.target.tagName === 'LI') {
 		event.target.classList.toggle('completed');
 	} else if (event.target.tagName === 'SPAN') {
-		event.target.parentElement.remove();
-	} else if (event.target.tagName === 'I') {
-		event.target.parentElement.parentElement.remove();
-	}
+    const todo = event.target.parentElement.textContent;
+    console.log(todo);
+    // event.target.parentElement.remove();
+
+  }
 });
-
-
-
-// Then, add local storage
